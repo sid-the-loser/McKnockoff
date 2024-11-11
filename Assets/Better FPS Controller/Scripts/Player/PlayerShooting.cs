@@ -1,4 +1,5 @@
 using Better_FPS_Controller.Scripts.General;
+using General;
 using TMPro;
 using UnityEngine;
 
@@ -14,20 +15,23 @@ namespace Better_FPS_Controller.Scripts.Player
 
         private void Update()
         {
-            RaycastHit hit;
-            var bro = Physics.Raycast(headObject.transform.position,
-                headObject.transform.TransformDirection(Vector3.forward),
-                out hit, Mathf.Infinity, layerMask);
-            if (bro)
+            if  (!GlobalVariables.GamePaused)
             {
-                crossHair.color = Color.red;
-                crossHair.fontStyle = FontStyles.Underline;
-                if (InputManager.RangedAttackPressed) Destroy(hit.collider.gameObject);
-            }
-            else
-            {
-                crossHair.color = Color.grey;
-                crossHair.fontStyle = FontStyles.Normal;
+                RaycastHit hit;
+                var bro = Physics.Raycast(headObject.transform.position,
+                    headObject.transform.TransformDirection(Vector3.forward),
+                    out hit, Mathf.Infinity, layerMask);
+                if (bro)
+                {
+                    crossHair.color = Color.red;
+                    crossHair.fontStyle = FontStyles.Underline;
+                    if (InputManager.RangedAttackPressed) Destroy(hit.collider.gameObject);
+                }
+                else
+                {
+                    crossHair.color = Color.grey;
+                    crossHair.fontStyle = FontStyles.Normal;
+                }
             }
         }
     }

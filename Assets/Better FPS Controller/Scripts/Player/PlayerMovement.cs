@@ -1,6 +1,7 @@
 // Code by: Sidharth S (aka SidTheLoser)
 
 using Better_FPS_Controller.Scripts.General;
+using General;
 using UnityEngine;
 
 namespace Better_FPS_Controller.Scripts.Player
@@ -34,8 +35,6 @@ namespace Better_FPS_Controller.Scripts.Player
         private Vector3 _velocity;
         private Vector3 _moveVector;
 
-        private bool _gamePaused;
-
         private bool _isGrounded;
 
         private void Start()
@@ -51,7 +50,7 @@ namespace Better_FPS_Controller.Scripts.Player
 
         private void Update()
         {
-            if (!_gamePaused) // INFO: Replace with whatever you use to identify a paused game...
+            if (!GlobalVariables.GamePaused)
             {
                 #region Mouse Logic
 

@@ -1,5 +1,7 @@
 // Code by: Sidharth S (aka SidTheLoser)
 
+using System;
+using General;
 using UnityEngine;
 
 namespace Better_FPS_Controller.Scripts.General
@@ -20,11 +22,18 @@ namespace Better_FPS_Controller.Scripts.General
 
         [SerializeField] private KeyCode rangedAttackKeyCode = KeyCode.Mouse0;
 
+        [Header("Misc")] [SerializeField] private KeyCode gamePauseKeyCode = KeyCode.Escape;
+
         [HideInInspector] public static Vector3 MovementVector;
         [HideInInspector] public static bool JumpButtonPressed;
         [HideInInspector] public static bool MeleeAttackPressed;
         [HideInInspector] public static bool RangedAttackPressed;
         [HideInInspector] public static bool SprintButtonPressed;
+
+        private void Awake()
+        {
+            if (gamePauseKeyCode == KeyCode.Escape && Application.isEditor) gamePauseKeyCode = KeyCode.P;
+        }
 
         private void Update()
         {
@@ -38,6 +47,12 @@ namespace Better_FPS_Controller.Scripts.General
             MeleeAttackPressed = Input.GetKeyDown(meleeAttackKeyCode);
             RangedAttackPressed = Input.GetKeyDown(rangedAttackKeyCode);
             SprintButtonPressed = Input.GetKey(sprintKeyCode);
+
+            if (Input.GetKeyDown(gamePauseKeyCode))
+            {
+                GlobalVariables.GamePaused = !GlobalVariables.GamePaused;
+                ToggleMouseCapture(!GlobalVariables.GamePaused);
+            }
         }
 
         public static void ToggleMouseCapture(bool value)

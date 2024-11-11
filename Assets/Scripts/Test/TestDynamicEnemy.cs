@@ -14,14 +14,23 @@ namespace Test
         private void Start()
         {
             _agent = GetComponent<NavMeshAgent>();
-            // _player = GameManager.PlayerGameObject.transform;
+            _player = GameManager.PlayerGameObject.transform;
         }
 
         private void Update()
         {
-            var position = _player.position;
+            Vector3 position;
             
-            if (_pastLocation != _player.position)
+            if (!GlobalVariables.GamePaused)
+            {
+                position = _player.position;
+            }
+            else
+            {
+                position = transform.position;
+            }
+            
+            if (_pastLocation != position)
             {
                 _agent.SetDestination(position);
                 _pastLocation = position;
