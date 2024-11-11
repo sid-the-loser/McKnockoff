@@ -1707,7 +1707,7 @@ MonoBehaviour:
   leftwardKeyCode: 97
   rightwardKeyCode: 100
   jumpKeyCode: 32
-  sprintKeyCode: 306
+  sprintKeyCode: 304
   meleeAttackKeyCode: 101
   rangedAttackKeyCode: 323
 --- !u!114 &705507997
