@@ -7,7 +7,7 @@ namespace Test
 {
     public class TestDynamicEnemy : MonoBehaviour
     {
-        [SerializeField] private Transform _player;
+        private Transform _player;
         private Vector3 _pastLocation;
         private NavMeshAgent _agent;
 
