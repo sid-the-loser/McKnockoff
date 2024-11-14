@@ -12,12 +12,14 @@ namespace Player
         [Header("Displaying Details")] 
         [SerializeField] private TextMeshProUGUI healthDisplay;
         [SerializeField] private TextMeshProUGUI moneyDisplay;
+        [SerializeField] private TextMeshProUGUI interactionDisplay;
         
         [Header("Internal Variables")]
         [SerializeField] private float immunityTime = 2.0f;
         [SerializeField] private float health = 100.0f;
         private int _money;
         private bool _immune;
+        private bool _interactable;
         
         private void Update()
         {
@@ -25,6 +27,7 @@ namespace Player
 
             healthDisplay.text = $"Health:{health}";
             moneyDisplay.text = $"Money:{_money}";
+            interactionDisplay.gameObject.SetActive(_interactable);
         }
 
         private IEnumerator ImmunityTimer()
