@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Barricades;
 using Enemy;
@@ -39,10 +40,14 @@ namespace Player
         [SerializeField] private GameObject smgModel;
         [SerializeField] private float smgDistance = 100.0f;
         [SerializeField] private float smgDamage = 5.0f;
+        [SerializeField] private float smgFireDelay = 0.1f;
 
         private Animator _meleeAnimator;
         private Animator _pistolAnimator;
         private Animator _slugAnimator;
+        private Animator _smgAnimator;
+        
+        private bool _smgInCooldown;
 
         private List<GameObject> _weaponsModel = new List<GameObject>();
         private PlayerStats _playerStats;
@@ -60,6 +65,7 @@ namespace Player
             _meleeAnimator = meleeModel.GetComponent<Animator>();
             _pistolAnimator = pistolModel.GetComponent<Animator>();
             _slugAnimator = slugModel.GetComponent<Animator>();
+            _smgAnimator = smgModel.GetComponent<Animator>();
             
             _playerStats = GetComponent<PlayerStats>();
         }
@@ -154,7 +160,7 @@ namespace Player
                             {
                                 crossHair.color = Color.red;
                                 crossHair.fontStyle = FontStyles.Underline;
-                                if (InputManager.RangedAttackPressedDown)
+                                if (InputManager.RangedAttackPressedDown && !_smgInCooldown)
                                 {
                                     // change it to make it so it shoots continuously with a delay
                                     data.collider.gameObject.GetComponent<EnemyStats>().GotHit(smgDamage);
@@ -198,7 +204,7 @@ namespace Player
 
                 #region Animations & Wasting Ammo
 
-                if (InputManager.RangedAttackPressed)
+                if (InputManager.RangedAttackPressed && weaponIndex != 3)
                 {
                     switch (weaponIndex)
                     {
@@ -213,9 +219,21 @@ namespace Player
                             break;
                     }
                 }
+                else if (InputManager.RangedAttackPressedDown && !_smgInCooldown)
+                {
+                    _smgAnimator.SetTrigger("attack");
+                    StartCoroutine(SmgCooldown());
+                }
 
                 #endregion
             }
+        }
+
+        private IEnumerator SmgCooldown()
+        {
+            _smgInCooldown = true;
+            yield return new WaitForSeconds(smgFireDelay);
+            _smgInCooldown = false;
         }
 
         private void UpdateWeaponsModel()

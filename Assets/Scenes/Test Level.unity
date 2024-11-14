@@ -2457,7 +2457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6942077286592150244, guid: 422944118da03704baca037c67910e22, type: 3}
       propertyPath: weaponIndex
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8633421047270241287, guid: 422944118da03704baca037c67910e22, type: 3}
       propertyPath: m_LocalPosition.x
