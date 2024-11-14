@@ -545,9 +545,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headObject: {fileID: 1673186391425960825}
-  layerMask:
+  enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  barricadeLayer:
+    serializedVersion: 2
+    m_Bits: 128
   crossHair: {fileID: 3355806372508914036}
   meleeModel: {fileID: 1665944925123799981}
   pistolModel: {fileID: 5776944393238671680}
@@ -569,8 +572,11 @@ MonoBehaviour:
   healthDisplay: {fileID: 2717203417190111925}
   moneyDisplay: {fileID: 743592212659223854}
   interactionDisplay: {fileID: 195913768566555022}
+  waveDisplay: {fileID: 256767565042172847}
   immunityTime: 1
   health: 100
+  money: 0
+  interactable: 0
 --- !u!1 &4002419784945534036
 GameObject:
   m_ObjectHideFlags: 0

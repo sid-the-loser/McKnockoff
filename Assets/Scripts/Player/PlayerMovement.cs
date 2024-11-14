@@ -1,5 +1,7 @@
 // Code by: Sidharth S (aka SidTheLoser)
 
+using System;
+using Enemy;
 using General;
 using UnityEngine;
 
@@ -93,6 +95,11 @@ namespace Player
                 _controller.Move(_velocity * Time.deltaTime);
 
                 #endregion
+
+                if (transform.position.y <= -100)
+                {
+                    GetComponent<PlayerStats>().PlayerDeath();
+                }
             }
         }
     }

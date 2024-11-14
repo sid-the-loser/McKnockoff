@@ -18,16 +18,19 @@ namespace Enemy
         private void Start()
         {
             _player = GameManager.PlayerGameObject.GetComponent<PlayerStats>();
+            GameManager.EnemyCount++;
         }
 
         private void Update()
         {
+        
             if (!GlobalVariables.GamePaused && 
                 GlobalVariables.FastDistanceCheck(_player.gameObject.transform.position, transform.position, 
                     minimumHitDistance))
             {
                 _player.Damage(hitDamage);
             }
+        
         }
 
         public void GotHit(float damage)
@@ -35,7 +38,8 @@ namespace Enemy
             health -= damage;
             if (health <= 0.0f)
             {
-                _player.AddMoney(moneyDrop);
+                _player.money += moneyDrop;
+                GameManager.EnemyCount--;
                 Destroy(gameObject);
             }
         }

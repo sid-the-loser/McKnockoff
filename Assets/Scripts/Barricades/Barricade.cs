@@ -1,11 +1,48 @@
+using System;
+using Enemy;
+using TMPro;
 using UnityEngine;
 
 namespace Barricades
 {
     public class Barricade : MonoBehaviour
     {
-        [SerializeField] private int unlockMoney;
+        public int unlockMoney;
+        [SerializeField] private TextMeshPro[] moneyDisplays;
+        [SerializeField] private EnemySpawnPoints[] enemySpawnPointsArray; 
 
-        public bool active;
+        private void Start()
+        {
+            foreach (var moneyDisplay in moneyDisplays)
+            {
+                moneyDisplay.text = $"${unlockMoney}";
+            }
+        }
+
+        public bool TryBuy(int amount)
+        {
+            var x = unlockMoney - amount;
+            if (x <= 0)
+            {
+                foreach (var spawnPoint in enemySpawnPointsArray)
+                {
+                    spawnPoint.Unlock();
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void RemoveMyself()
+        {
+            foreach (var moneyDisplay in moneyDisplays)
+            {
+                moneyDisplay.text = "";
+            }
+            gameObject.SetActive(false);
+        }
     }
 }

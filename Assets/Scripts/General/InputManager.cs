@@ -1,6 +1,7 @@
 // Code by: Sidharth S (aka SidTheLoser)
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace General
 {
@@ -16,15 +17,16 @@ namespace General
         [SerializeField] private KeyCode sprintKeyCode = KeyCode.LeftControl;
 
         [Header("Player Attack Keybindings")] [SerializeField]
-        private KeyCode meleeAttackKeyCode = KeyCode.E;
+        private KeyCode useKeyCode = KeyCode.E;
 
         [SerializeField] private KeyCode rangedAttackKeyCode = KeyCode.Mouse0;
 
         [Header("Misc")] [SerializeField] private KeyCode gamePauseKeyCode = KeyCode.Escape;
+        [SerializeField] private GameObject pauseMenu;
 
         [HideInInspector] public static Vector3 MovementVector;
         [HideInInspector] public static bool JumpButtonPressed;
-        [HideInInspector] public static bool MeleeAttackPressed;
+        [HideInInspector] public static bool UseButtonPressed;
         [HideInInspector] public static bool RangedAttackPressed;
         [HideInInspector] public static bool SprintButtonPressed;
 
@@ -42,7 +44,7 @@ namespace General
             if (Input.GetKey(leftwardKeyCode)) MovementVector.x -= 1;
 
             JumpButtonPressed = Input.GetKeyDown(jumpKeyCode);
-            MeleeAttackPressed = Input.GetKeyDown(meleeAttackKeyCode);
+            UseButtonPressed = Input.GetKeyDown(useKeyCode);
             RangedAttackPressed = Input.GetKeyDown(rangedAttackKeyCode);
             SprintButtonPressed = Input.GetKey(sprintKeyCode);
 
@@ -51,6 +53,9 @@ namespace General
                 GlobalVariables.GamePaused = !GlobalVariables.GamePaused;
                 ToggleMouseCapture(!GlobalVariables.GamePaused);
             }
+            
+            if (pauseMenu is not null)
+                pauseMenu.SetActive(GlobalVariables.GamePaused);
         }
 
         public static void ToggleMouseCapture(bool value)

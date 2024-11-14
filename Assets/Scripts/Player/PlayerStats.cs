@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using General;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,21 +14,23 @@ namespace Player
         [SerializeField] private TextMeshProUGUI healthDisplay;
         [SerializeField] private TextMeshProUGUI moneyDisplay;
         [SerializeField] private TextMeshProUGUI interactionDisplay;
+        [SerializeField] private TextMeshProUGUI waveDisplay;
         
         [Header("Internal Variables")]
         [SerializeField] private float immunityTime = 2.0f;
         [SerializeField] private float health = 100.0f;
-        private int _money;
+        [HideInInspector] public int money;
         private bool _immune;
-        private bool _interactable;
+        [HideInInspector] public bool interactable;
         
         private void Update()
         {
-            if (health <= 0.0f) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (health <= 0.0f) PlayerDeath();
 
             healthDisplay.text = $"Health:{health}";
-            moneyDisplay.text = $"Money:{_money}";
-            interactionDisplay.gameObject.SetActive(_interactable);
+            moneyDisplay.text = $"Money:{money}";
+            interactionDisplay.gameObject.SetActive(interactable);
+            waveDisplay.text = $"Wave:{GameManager.CurrentWaveIndex}";
         }
 
         private IEnumerator ImmunityTimer()
@@ -45,15 +48,11 @@ namespace Player
                 StartCoroutine(ImmunityTimer());
             }
         }
-        
-        public void AddMoney(int amount)
-        {
-            _money += amount;
-        }
 
-        public int GetMoney()
+        public void PlayerDeath()
         {
-            return _money;
+            // TODO: could add sfx here and maybe a time delay
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
