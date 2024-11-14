@@ -157,4 +157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  moneyDrop: 2
   hitDamage: 1
+  minimumHitDistance: 1

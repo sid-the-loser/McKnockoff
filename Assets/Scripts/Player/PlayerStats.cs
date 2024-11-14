@@ -19,9 +19,12 @@ namespace Player
         private int _money;
         private bool _immune;
         
-        public void Update()
+        private void Update()
         {
             if (health <= 0.0f) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            healthDisplay.text = $"Health:{health}";
+            moneyDisplay.text = $"Money:{_money}";
         }
 
         private IEnumerator ImmunityTimer()
