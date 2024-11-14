@@ -27,7 +27,7 @@ namespace Player
         {
             if (health <= 0.0f) PlayerDeath();
 
-            healthDisplay.text = $"Health:{health}";
+            healthDisplay.text = $"Health:{(int)health}";
             moneyDisplay.text = $"Money:{money}";
             interactionDisplay.gameObject.SetActive(interactable);
             waveDisplay.text = $"Wave:{GameManager.CurrentWaveIndex}";

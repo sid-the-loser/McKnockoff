@@ -33,6 +33,7 @@ namespace General
         
         private void Awake()
         {
+            GlobalVariables.GamePaused = false;
             PlayerGameObject = FindObjectOfType<PlayerMovement>().gameObject;
             EnemyCount = 0;
             CurrentWaveIndex = 0;

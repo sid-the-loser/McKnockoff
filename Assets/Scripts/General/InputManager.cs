@@ -28,11 +28,14 @@ namespace General
         [HideInInspector] public static bool JumpButtonPressed;
         [HideInInspector] public static bool UseButtonPressed;
         [HideInInspector] public static bool RangedAttackPressed;
+        [HideInInspector] public static bool RangedAttackPressedDown;
         [HideInInspector] public static bool SprintButtonPressed;
 
         private void Awake()
         {
-            if (gamePauseKeyCode == KeyCode.Escape && Application.isEditor) gamePauseKeyCode = KeyCode.P;
+            if (gamePauseKeyCode == KeyCode.Escape && 
+                (Application.isEditor || Application.platform == RuntimePlatform.WebGLPlayer)) 
+                gamePauseKeyCode = KeyCode.P;
         }
 
         private void Update()
@@ -46,6 +49,7 @@ namespace General
             JumpButtonPressed = Input.GetKeyDown(jumpKeyCode);
             UseButtonPressed = Input.GetKeyDown(useKeyCode);
             RangedAttackPressed = Input.GetKeyDown(rangedAttackKeyCode);
+            RangedAttackPressedDown = Input.GetKey(rangedAttackKeyCode);
             SprintButtonPressed = Input.GetKey(sprintKeyCode);
 
             if (Input.GetKeyDown(gamePauseKeyCode))

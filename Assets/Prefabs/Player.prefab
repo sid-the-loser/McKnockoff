@@ -552,11 +552,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   crossHair: {fileID: 3355806372508914036}
-  meleeModel: {fileID: 1665944925123799981}
-  pistolModel: {fileID: 5776944393238671680}
-  slugModel: {fileID: 2896287945521314928}
-  smgModel: {fileID: 7147132831670127599}
   weaponIndex: 0
+  meleeModel: {fileID: 1665944925123799981}
+  meleeDistance: 5
+  meleeDamage: 1
+  pistolModel: {fileID: 5776944393238671680}
+  pistolDistance: 100
+  pistolDamage: 5
+  slugModel: {fileID: 2896287945521314928}
+  slugDistance: 50
+  slugDamage: 10
+  smgModel: {fileID: 7147132831670127599}
+  smgDistance: 100
+  smgDamage: 5
 --- !u!114 &4164546381515441409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1371,13 +1379,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6469318109257501393, guid: 219d8ffdf7aa52340b068de151c22d5f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8825134344690947045}
   m_SourcePrefab: {fileID: 100100000, guid: 219d8ffdf7aa52340b068de151c22d5f, type: 3}
 --- !u!1 &5776944393238671680 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6469318109257501393, guid: 219d8ffdf7aa52340b068de151c22d5f, type: 3}
   m_PrefabInstance: {fileID: 715077119778454417}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8825134344690947045
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776944393238671680}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4d57a8a82b83254a9164706f288c166, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &6584268143992810490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5948254723906457707, guid: 219d8ffdf7aa52340b068de151c22d5f, type: 3}
@@ -1394,6 +1426,10 @@ PrefabInstance:
     - target: {fileID: 42200942969427938, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
       propertyPath: m_Name
       value: bagget
+      objectReference: {fileID: 0}
+    - target: {fileID: 42200942969427938, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 855188204818615640, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1438,13 +1474,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 42200942969427938, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6958810530677394957}
   m_SourcePrefab: {fileID: 100100000, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
 --- !u!1 &1665944925123799981 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 42200942969427938, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
   m_PrefabInstance: {fileID: 1696535023550692431}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &6958810530677394957
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665944925123799981}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 76f398db153c3ce4792647c99c8aa3d7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &2041661948905271575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 855188204818615640, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
@@ -1464,7 +1524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3777808908081389712, guid: 4c8bd05fa6d6d38478a4df303b5f2682, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4550510854445939242, guid: 4c8bd05fa6d6d38478a4df303b5f2682, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1509,7 +1569,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3777808908081389712, guid: 4c8bd05fa6d6d38478a4df303b5f2682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7785950906833151343}
   m_SourcePrefab: {fileID: 100100000, guid: 4c8bd05fa6d6d38478a4df303b5f2682, type: 3}
 --- !u!4 &2556494440340088522 stripped
 Transform:
@@ -1521,6 +1584,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3777808908081389712, guid: 4c8bd05fa6d6d38478a4df303b5f2682, type: 3}
   m_PrefabInstance: {fileID: 2043745435586419936}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &7785950906833151343
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896287945521314928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e05a6f4c4b8f7e54786345e603ebbbca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &3949832055109855591
 PrefabInstance:
   m_ObjectHideFlags: 0
