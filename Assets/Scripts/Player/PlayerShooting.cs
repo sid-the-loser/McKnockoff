@@ -42,6 +42,7 @@ namespace Player
 
         private Animator _meleeAnimator;
         private Animator _pistolAnimator;
+        private Animator _slugAnimator;
 
         private List<GameObject> _weaponsModel = new List<GameObject>();
         private PlayerStats _playerStats;
@@ -58,6 +59,7 @@ namespace Player
 
             _meleeAnimator = meleeModel.GetComponent<Animator>();
             _pistolAnimator = pistolModel.GetComponent<Animator>();
+            _slugAnimator = slugModel.GetComponent<Animator>();
             
             _playerStats = GetComponent<PlayerStats>();
         }
@@ -205,6 +207,9 @@ namespace Player
                             break;
                         case 1:
                             _pistolAnimator.SetTrigger("attack");
+                            break;
+                        case 2:
+                            _slugAnimator.SetTrigger("attack");
                             break;
                     }
                 }
