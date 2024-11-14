@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -8,6 +9,11 @@ namespace Player
 {
     public class PlayerStats : MonoBehaviour
     {
+        [Header("Displaying Details")] 
+        [SerializeField] private TextMeshProUGUI healthDisplay;
+        [SerializeField] private TextMeshProUGUI moneyDisplay;
+        
+        [Header("Internal Variables")]
         [SerializeField] private float immunityTime = 2.0f;
         [SerializeField] private float health = 100.0f;
         private int _money;

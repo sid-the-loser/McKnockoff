@@ -9,6 +9,7 @@ namespace Enemy
     {
 
         [SerializeField] private float health = 10.0f;
+        [SerializeField] private int moneyDrop;
         [SerializeField] private float hitDamage = 1.0f;
         [SerializeField] private float minimumHitDistance = 2;
 
@@ -32,7 +33,11 @@ namespace Enemy
         public void GotHit(float damage)
         {
             health -= damage;
-            if (health <= 0.0f) Destroy(gameObject);
+            if (health <= 0.0f)
+            {
+                _player.AddMoney(moneyDrop);
+                Destroy(gameObject);
+            }
         }
     }
 }
