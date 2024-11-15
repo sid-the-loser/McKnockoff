@@ -13,6 +13,7 @@ namespace Enemy
         [SerializeField] private int moneyDrop;
         [SerializeField] private float hitDamage = 1.0f;
         [SerializeField] private float minimumHitDistance = 2;
+        [SerializeField] private AudioSource audioSource;
 
         private PlayerStats _player;
         
@@ -64,6 +65,7 @@ namespace Enemy
             if (health <= 0.0f)
             {
                 _player.money += moneyDrop;
+                audioSource.Play();
                 GameManager.EnemyCount--;
                 Destroy(gameObject);
             }

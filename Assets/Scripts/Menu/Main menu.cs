@@ -8,7 +8,7 @@ public class Mainmenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Test Level");
+        SceneManager.LoadScene("Scenes/Map");
     }
 
     public void ExitGame()

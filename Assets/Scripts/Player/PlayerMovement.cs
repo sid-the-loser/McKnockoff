@@ -24,6 +24,9 @@ namespace Player
         [SerializeField] private float groundDistance = 0.4f;
         [SerializeField] private LayerMask groundMask;
 
+        // [Header("SFX")] [SerializeField] private AudioSource audioSource;
+        // [SerializeField] private AudioClip walkingSfx;
+        
         [Header("Misc")] [SerializeField] private GameObject headObject;
         [SerializeField] private bool alwaysSprint;
         [SerializeField] private bool jumpPossible = true;
@@ -92,6 +95,11 @@ namespace Player
                     _velocity.y = Mathf.Sqrt(jumpHeight * 2f * Mathf.Abs(gravity));
 
                 _velocity.y += gravity * Time.deltaTime;
+
+                if (_moveVector != Vector3.zero)
+                {
+                    // audioSource.Play();
+                }
 
                 _controller.Move(_velocity * Time.deltaTime);
 

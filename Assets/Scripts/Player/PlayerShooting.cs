@@ -7,6 +7,7 @@ using General;
 using TMPro;
 using Trashcans;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 // todo: rework required
@@ -74,6 +75,9 @@ namespace Player
         [SerializeField] private PlayerStats playerStats;
         [SerializeField] private PlayerMovement playerMovement;
 
+        [SerializeField] private GameObject generalUI;
+        [SerializeField] private GameObject pauseUI;
+
         private void Start()
         {
             playerStats = GetComponent<PlayerStats>();
@@ -97,6 +101,13 @@ namespace Player
 
         private void Update()
         {
+            #region Pause Menu
+
+            generalUI.SetActive(!GlobalVariables.GamePaused);
+            pauseUI.SetActive(GlobalVariables.GamePaused);
+
+            #endregion
+            
             playerStats._Update();
             playerMovement._Update();
             if  (!GlobalVariables.GamePaused)
@@ -265,6 +276,7 @@ namespace Player
                             if (!_meleeInCooldown)
                             {
                                 meleeAnimator.SetTrigger("attack");
+                                audioSource.PlayOneShot(meleeAudioClip);
                                 StartCoroutine(MeleeCooldown());
                             }
                             break;
@@ -272,6 +284,7 @@ namespace Player
                             if (!_pistolInCooldown  && _inHandAmmo > 0)
                             {
                                 pistolAnimator.SetTrigger("attack");
+                                audioSource.PlayOneShot(pistolAudioClip);
                                 _inHandAmmo--;
                                 StartCoroutine(PistolCooldown());
                             }
@@ -280,6 +293,7 @@ namespace Player
                             if (!_slugInCooldown  && _inHandAmmo > 0)
                             {
                                 slugAnimator.SetTrigger("attack");
+                                audioSource.PlayOneShot(slugAudioClip);
                                 _inHandAmmo--;
                                 StartCoroutine(SlugCooldown());
                             }
@@ -288,8 +302,8 @@ namespace Player
                 }
                 else if (InputManager.RangedAttackPressedDown && weaponIndex == 3 && !_smgInCooldown && _inHandAmmo > 0)
                 {
-                    print("huh?");
                     smgAnimator.SetTrigger("attack");
+                    audioSource.PlayOneShot(smgAudioClip);
                     _inHandAmmo--;
                     StartCoroutine(SmgCooldown());
                 }
@@ -368,6 +382,21 @@ namespace Player
                 obj.SetActive(false);
             }
             _weaponsModel[weaponIndex].SetActive(true);
+        }
+
+        public void ResumeGame()
+        {
+            GlobalVariables.GamePaused = false;
+        }
+
+        public void ReloadLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void ExitToMainMenu()
+        {
+            SceneManager.LoadScene("Main menu");
         }
     }
 }

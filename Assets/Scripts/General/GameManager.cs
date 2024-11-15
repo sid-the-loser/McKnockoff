@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Enemy;
 using Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace General
@@ -51,7 +52,8 @@ namespace General
                 {
                     if (CurrentWaveIndex >= waveData.Length)
                     {
-                        // TODO: win statement
+                        InputManager.ToggleMouseCapture(false);
+                        SceneManager.LoadScene("Main menu");
                     }
                     else
                     {

@@ -18,7 +18,9 @@ namespace Player
         
         [Header("Internal Variables")]
         [SerializeField] private float immunityTime = 2.0f;
-        [SerializeField] private float health = 100.0f;
+        [SerializeField] private float health = 10.0f;
+        
+        [Header("SFX")] [SerializeField] private AudioSource audioSource;
         
         [HideInInspector] public int money;
         private bool _immune;
@@ -46,6 +48,7 @@ namespace Player
             if (!_immune)
             {
                 health -= amount;
+                audioSource.Play();
                 StartCoroutine(ImmunityTimer());
             }
         }

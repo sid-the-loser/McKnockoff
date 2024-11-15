@@ -57,9 +57,8 @@ namespace General
                 GlobalVariables.GamePaused = !GlobalVariables.GamePaused;
                 ToggleMouseCapture(!GlobalVariables.GamePaused);
             }
-            
-            if (pauseMenu is not null)
-                pauseMenu.SetActive(GlobalVariables.GamePaused);
+
+            // pauseMenu?.SetActive(GlobalVariables.GamePaused);
         }
 
         public static void ToggleMouseCapture(bool value)
