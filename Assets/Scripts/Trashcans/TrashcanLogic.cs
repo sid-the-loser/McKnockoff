@@ -20,7 +20,7 @@ namespace Trashcans
             var x = moneyToOpen - amount;
             if (x <= 0)
             {
-                return Random.Range(1, 3);
+                return Random.Range(1, 4);
             }
             
             return -1;
@@ -28,7 +28,7 @@ namespace Trashcans
         
         public void RemoveMyself()
         { 
-            Destroy(gameObject);
+            // Destroy(gameObject);
         }
     }
 }

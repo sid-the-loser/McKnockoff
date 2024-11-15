@@ -26,6 +26,7 @@ namespace Player
 
         [Header("Misc")] [SerializeField] private GameObject headObject;
         [SerializeField] private bool alwaysSprint;
+        [SerializeField] private bool jumpPossible = true;
 
         private CharacterController _controller;
 
@@ -87,7 +88,7 @@ namespace Player
 
                 _controller.Move(_moveVector * (_currentSpeed * Time.deltaTime));
 
-                if (InputManager.JumpButtonPressed && _isGrounded)
+                if (InputManager.JumpButtonPressed && _isGrounded && jumpPossible)
                     _velocity.y = Mathf.Sqrt(jumpHeight * 2f * Mathf.Abs(gravity));
 
                 _velocity.y += gravity * Time.deltaTime;

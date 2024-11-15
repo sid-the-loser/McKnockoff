@@ -159,7 +159,7 @@ Transform:
   m_GameObject: {fileID: 1673186391425960825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.741, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -310,6 +310,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8725947740094319180}
+  - component: {fileID: 8549066875220679162}
   m_Layer: 0
   m_Name: Guns
   m_TagString: Untagged
@@ -336,6 +337,102 @@ Transform:
   - {fileID: 2041661948905271575}
   m_Father: {fileID: 8827986652264828994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &8549066875220679162
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970843185234166405}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: c57a028656caf1340bbf8ebeaf2ecc14, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2163156524202028096
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +647,11 @@ MonoBehaviour:
   smgDamage: 5
   smgFireDelay: 0.1
   maxSmgAmmo: 100
+  audioSource: {fileID: 8549066875220679162}
+  meleeAudioClip: {fileID: 8300000, guid: de62672cf6144294c87ad127082b057a, type: 3}
+  pistolAudioClip: {fileID: 8300000, guid: fa5b2597402989c4badbf079e9bd696c, type: 3}
+  slugAudioClip: {fileID: 8300000, guid: 41c1bf9c15058dd4bbe52d458686405a, type: 3}
+  smgAudioClip: {fileID: 8300000, guid: 129ed031e446a9c4ca6a68f2df24b3df, type: 3}
   ammoDisplay: {fileID: 3771582100064364708}
   meleeAnimator: {fileID: 6958810530677394957}
   pistolAnimator: {fileID: 8825134344690947045}
@@ -582,6 +684,7 @@ MonoBehaviour:
     m_Bits: 64
   headObject: {fileID: 1673186391425960825}
   alwaysSprint: 1
+  jumpPossible: 0
 --- !u!114 &4164546381515441409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,7 +1067,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -250.00015, y: 149.99997}
+  m_AnchoredPosition: {x: -250, y: 150}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6149949284047971093

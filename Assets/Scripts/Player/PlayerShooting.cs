@@ -49,6 +49,13 @@ namespace Player
         [SerializeField] private float smgDamage = 2.0f;
         [SerializeField] private float smgFireDelay = 0.1f;
         [SerializeField] private int maxSmgAmmo = 100;
+        
+        [Header("Sfx")]
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip meleeAudioClip;
+        [SerializeField] private AudioClip pistolAudioClip;
+        [SerializeField] private AudioClip slugAudioClip;
+        [SerializeField] private AudioClip smgAudioClip;
 
         [Header("Misc")] [SerializeField] private TextMeshProUGUI ammoDisplay;
 

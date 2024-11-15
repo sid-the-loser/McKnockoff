@@ -2717,11 +2717,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2663861736863382779, guid: 422944118da03704baca037c67910e22, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 100
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 2663861736863382779, guid: 422944118da03704baca037c67910e22, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4164546381515441409, guid: 422944118da03704baca037c67910e22, type: 3}
       propertyPath: health
@@ -8487,7 +8487,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 990255756513939398, guid: 8ee30b1007e266c4eb8239a62bb16a82, type: 3}
       propertyPath: moneyToOpen
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3543115740560917612, guid: 8ee30b1007e266c4eb8239a62bb16a82, type: 3}
       propertyPath: m_Mesh
