@@ -25,22 +25,30 @@ namespace Player
         [SerializeField] private GameObject meleeModel;
         [SerializeField] private float meleeDistance = 10.0f;
         [SerializeField] private float meleeDamage = 1.0f;
+        [SerializeField] private float meleeFireDelay = 0.5f;
         
         [Header("Pistol")]
         [SerializeField] private GameObject pistolModel;
         [SerializeField] private float pistolDistance = 100.0f;
         [SerializeField] private float pistolDamage = 5.0f;
+        [SerializeField] private float pistolFireDelay = 0.5f;
+        [SerializeField] private int maxPistolAmmo = 10;
         
         [Header("Slug")]
         [SerializeField] private GameObject slugModel;
         [SerializeField] private float slugDistance = 50.0f;
         [SerializeField] private float slugDamage = 10.0f;
+        [SerializeField] private float slugFireDelay = 0.6f;
+        [SerializeField] private int maxSlugAmmo = 2;
         
         [Header("Smg")]
         [SerializeField] private GameObject smgModel;
         [SerializeField] private float smgDistance = 100.0f;
-        [SerializeField] private float smgDamage = 5.0f;
+        [SerializeField] private float smgDamage = 2.0f;
         [SerializeField] private float smgFireDelay = 0.1f;
+        [SerializeField] private int maxSmgAmmo = 100;
+
+        [Header("Misc")] [SerializeField] private TextMeshProUGUI ammoDisplay;
 
         private Animator _meleeAnimator;
         private Animator _pistolAnimator;
@@ -48,8 +56,12 @@ namespace Player
         private Animator _smgAnimator;
         
         private bool _smgInCooldown;
+        private bool _slugInCooldown;
+        private bool _meleeInCooldown;
+        private bool _pistolInCooldown;
 
         private List<GameObject> _weaponsModel = new List<GameObject>();
+        private int _inHandAmmo;
         private PlayerStats _playerStats;
 
         private void Start()
@@ -100,7 +112,7 @@ namespace Player
                                 crossHair.color = Color.red;
                                 crossHair.fontStyle = FontStyles.Underline;
                             
-                                if (InputManager.RangedAttackPressed)
+                                if (InputManager.RangedAttackPressed && !_meleeInCooldown)
                                 {
                                     data.collider.gameObject.GetComponent<EnemyStats>().GotHit(meleeDamage);
                                 }
@@ -120,7 +132,7 @@ namespace Player
                             {
                                 crossHair.color = Color.red;
                                 crossHair.fontStyle = FontStyles.Underline;
-                                if (InputManager.RangedAttackPressed)
+                                if (InputManager.RangedAttackPressed && !_pistolInCooldown)
                                 {
                                     data.collider.gameObject.GetComponent<EnemyStats>().GotHit(pistolDamage);
                                 }
@@ -140,7 +152,7 @@ namespace Player
                             {
                                 crossHair.color = Color.red;
                                 crossHair.fontStyle = FontStyles.Underline;
-                                if (InputManager.RangedAttackPressed)
+                                if (InputManager.RangedAttackPressed && !_slugInCooldown)
                                 {
                                     data.collider.gameObject.GetComponent<EnemyStats>().GotHit(slugDamage);
                                 }
@@ -162,7 +174,6 @@ namespace Player
                                 crossHair.fontStyle = FontStyles.Underline;
                                 if (InputManager.RangedAttackPressedDown && !_smgInCooldown)
                                 {
-                                    // change it to make it so it shoots continuously with a delay
                                     data.collider.gameObject.GetComponent<EnemyStats>().GotHit(smgDamage);
                                 }
                             }
@@ -209,26 +220,73 @@ namespace Player
                     switch (weaponIndex)
                     {
                         case 0:
-                            _meleeAnimator.SetTrigger("attack");
+                            if (!_meleeInCooldown)
+                            {
+                                _meleeAnimator.SetTrigger("attack");
+                                StartCoroutine(MeleeCooldown());
+                            }
                             break;
                         case 1:
-                            _pistolAnimator.SetTrigger("attack");
+                            if (!_pistolInCooldown)
+                            {
+                                _pistolAnimator.SetTrigger("attack");
+                                StartCoroutine(PistolCooldown());
+                            }
                             break;
                         case 2:
-                            _slugAnimator.SetTrigger("attack");
+                            if (!_slugInCooldown)
+                            {
+                                _slugAnimator.SetTrigger("attack");
+                                StartCoroutine(SlugCooldown());
+                            }
                             break;
                     }
                 }
-                else if (InputManager.RangedAttackPressedDown && !_smgInCooldown)
+                else if (InputManager.RangedAttackPressedDown && weaponIndex == 3 && !_smgInCooldown)
                 {
+                    print("huh?");
                     _smgAnimator.SetTrigger("attack");
                     StartCoroutine(SmgCooldown());
+                }
+
+                #endregion
+
+                #region Ammo Display Stuff
+
+                if (weaponIndex == 0)
+                {
+                    ammoDisplay.text = "";
+                }
+                else
+                {
+                    ammoDisplay.text = $"Ammo:{_inHandAmmo}";
                 }
 
                 #endregion
             }
         }
 
+        private IEnumerator MeleeCooldown()
+        {
+            _meleeInCooldown = true;
+            yield return new WaitForSeconds(meleeFireDelay);
+            _meleeInCooldown = false;
+        }
+        
+        private IEnumerator PistolCooldown()
+        {
+            _pistolInCooldown = true;
+            yield return new WaitForSeconds(pistolFireDelay);
+            _pistolInCooldown = false;
+        }
+        
+        private IEnumerator SlugCooldown()
+        {
+            _slugInCooldown = true;
+            yield return new WaitForSeconds(slugFireDelay);
+            _slugInCooldown = false;
+        }
+        
         private IEnumerator SmgCooldown()
         {
             _smgInCooldown = true;
@@ -238,6 +296,19 @@ namespace Player
 
         private void UpdateWeaponsModel()
         {
+            if (weaponIndex == 1)
+            {
+                _inHandAmmo = maxPistolAmmo;
+            }
+            if (weaponIndex == 2)
+            {
+                _inHandAmmo = maxSlugAmmo;
+            }
+            if (weaponIndex == 3)
+            {
+                _inHandAmmo = maxSmgAmmo;
+            }
+            
             foreach (var obj in _weaponsModel)
             {
                 obj.SetActive(false);

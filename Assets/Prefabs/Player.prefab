@@ -556,16 +556,23 @@ MonoBehaviour:
   meleeModel: {fileID: 1665944925123799981}
   meleeDistance: 5
   meleeDamage: 1
+  meleeFireDelay: 0.5
   pistolModel: {fileID: 5776944393238671680}
   pistolDistance: 100
   pistolDamage: 5
+  pistolFireDelay: 0.5
+  maxPistolAmmo: 10
   slugModel: {fileID: 2896287945521314928}
   slugDistance: 50
   slugDamage: 10
+  slugFireDelay: 0.6
+  maxSlugAmmo: 2
   smgModel: {fileID: 7147132831670127599}
   smgDistance: 100
   smgDamage: 5
   smgFireDelay: 0.1
+  maxSmgAmmo: 100
+  ammoDisplay: {fileID: 3771582100064364708}
 --- !u!114 &4164546381515441409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,7 +1437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 42200942969427938, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 855188204818615640, guid: ef83871f4602a6b4ca3bf1fe154ffcd7, type: 3}
       propertyPath: m_LocalPosition.x
