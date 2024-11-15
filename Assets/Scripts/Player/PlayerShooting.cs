@@ -52,10 +52,10 @@ namespace Player
 
         [Header("Misc")] [SerializeField] private TextMeshProUGUI ammoDisplay;
 
-        [SerializeField]private Animator meleeAnimator;
-        [SerializeField]private Animator pistolAnimator;
-        [SerializeField]private Animator slugAnimator;
-        [SerializeField]private Animator smgAnimator;
+        [SerializeField]private Animator meleeAnimator = new Animator();
+        [SerializeField]private Animator pistolAnimator  = new Animator();
+        [SerializeField]private Animator slugAnimator = new Animator();
+        [SerializeField]private Animator smgAnimator = new Animator();
         
         private bool _smgInCooldown;
         private bool _slugInCooldown;
@@ -64,10 +64,16 @@ namespace Player
 
         private List<GameObject> _weaponsModel = new List<GameObject>();
         private int _inHandAmmo;
-        [FormerlySerializedAs("_playerStats")] [SerializeField] private PlayerStats playerStats;
+        [SerializeField] private PlayerStats playerStats;
+        [SerializeField] private PlayerMovement playerMovement;
 
         private void Start()
         {
+            playerStats = GetComponent<PlayerStats>();
+            playerMovement = GetComponent<PlayerMovement>();
+            
+            playerMovement._Start();
+            
             if (!Application.isEditor)
                 weaponIndex = 0; // starting with melee weapon
             _weaponsModel.Add(meleeModel);
@@ -80,12 +86,12 @@ namespace Player
             pistolAnimator = pistolModel.GetComponent<Animator>();
             slugAnimator = slugModel.GetComponent<Animator>();
             smgAnimator = smgModel.GetComponent<Animator>();
-            
-            playerStats = GetComponent<PlayerStats>();
         }
 
         private void Update()
         {
+            playerStats._Update();
+            playerMovement._Update();
             if  (!GlobalVariables.GamePaused)
             {
                 RaycastHit data;

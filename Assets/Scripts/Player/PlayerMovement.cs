@@ -38,7 +38,7 @@ namespace Player
 
         private bool _isGrounded;
 
-        private void Start()
+        public void _Start()
         {
             _controller = GetComponent<CharacterController>();
 
@@ -49,7 +49,7 @@ namespace Player
             InputManager.ToggleMouseCapture(true);
         }
 
-        private void Update()
+        public void _Update()
         {
             if (!GlobalVariables.GamePaused)
             {

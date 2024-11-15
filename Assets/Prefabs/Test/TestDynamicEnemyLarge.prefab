@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7439486119804309269}
   - component: {fileID: 789702953891353065}
   - component: {fileID: 1839565078265027763}
-  - component: {fileID: 8651835951189992275}
   - component: {fileID: 5103435430585627182}
   m_Layer: 3
   m_Name: TestDynamicEnemyLarge
@@ -132,18 +131,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
---- !u!114 &8651835951189992275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6472404329150061489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab0261efdd73db84db539fab89749e8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5103435430585627182
 MonoBehaviour:
   m_ObjectHideFlags: 0

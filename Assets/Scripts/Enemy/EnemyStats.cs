@@ -2,6 +2,7 @@ using System;
 using General;
 using Player;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Enemy
 {
@@ -14,21 +15,45 @@ namespace Enemy
         [SerializeField] private float minimumHitDistance = 2;
 
         private PlayerStats _player;
+        
+        private Transform _playerTransform;
+        private Vector3 _pastLocation;
+        private NavMeshAgent _agent;
 
         private void Start()
         {
+            _agent = GetComponent<NavMeshAgent>();
+            _playerTransform = GameManager.PlayerGameObject.transform;
             _player = GameManager.PlayerGameObject.GetComponent<PlayerStats>();
             GameManager.EnemyCount++;
         }
 
         private void Update()
         {
-        
-            if (!GlobalVariables.GamePaused && 
-                GlobalVariables.FastDistanceCheck(_player.gameObject.transform.position, transform.position, 
-                    minimumHitDistance))
+            Vector3 position;
+
+            if (!GlobalVariables.GamePaused)
             {
-                _player.Damage(hitDamage);
+                position = _playerTransform.position;
+            }
+            else
+            {
+                position = transform.position;
+            }
+
+            if (_pastLocation != position)
+            {
+                _agent.SetDestination(position);
+                _pastLocation = position;
+            }
+            
+            if (!GlobalVariables.GamePaused)
+            {
+                if (GlobalVariables.FastDistanceCheck(_player.gameObject.transform.position, transform.position,
+                        minimumHitDistance))
+                {
+                    _player.Damage(hitDamage);
+                }
             }
         
         }

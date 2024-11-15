@@ -24,7 +24,7 @@ namespace Player
         private bool _immune;
         [HideInInspector] public bool interactable;
         
-        private void Update()
+        public void _Update()
         {
             if (health <= 0.0f) PlayerDeath();
 

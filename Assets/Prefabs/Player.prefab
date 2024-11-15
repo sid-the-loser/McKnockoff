@@ -380,8 +380,8 @@ GameObject:
   - component: {fileID: 5400920476929422747}
   - component: {fileID: 8516142946842200421}
   - component: {fileID: 1993767481674278607}
-  - component: {fileID: 5154308915660131459}
   - component: {fileID: 6942077286592150244}
+  - component: {fileID: 5154308915660131459}
   - component: {fileID: 4164546381515441409}
   m_Layer: 0
   m_Name: Player
@@ -507,31 +507,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5154308915660131459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2583403860052910330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 681fe9956008c184baad450483a7d23d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpHeight: 2
-  walkingSpeed: 6
-  sprintingSpeed: 16
-  mouseSensitivity: 2
-  gravity: -9.8
-  lerpSpeed: 10
-  groundCheck: {fileID: 6442097606861478008}
-  groundDistance: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  headObject: {fileID: 1673186391425960825}
-  alwaysSprint: 1
 --- !u!114 &6942077286592150244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,6 +556,32 @@ MonoBehaviour:
   slugAnimator: {fileID: 7785950906833151343}
   smgAnimator: {fileID: 7783223614513758063}
   playerStats: {fileID: 4164546381515441409}
+  playerMovement: {fileID: 5154308915660131459}
+--- !u!114 &5154308915660131459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2583403860052910330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 681fe9956008c184baad450483a7d23d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpHeight: 2
+  walkingSpeed: 6
+  sprintingSpeed: 16
+  mouseSensitivity: 2
+  gravity: -9.8
+  lerpSpeed: 10
+  groundCheck: {fileID: 6442097606861478008}
+  groundDistance: 0.4
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  headObject: {fileID: 1673186391425960825}
+  alwaysSprint: 1
 --- !u!114 &4164546381515441409
 MonoBehaviour:
   m_ObjectHideFlags: 0
