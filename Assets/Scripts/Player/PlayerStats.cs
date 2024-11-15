@@ -19,6 +19,7 @@ namespace Player
         [Header("Internal Variables")]
         [SerializeField] private float immunityTime = 2.0f;
         [SerializeField] private float health = 100.0f;
+        
         [HideInInspector] public int money;
         private bool _immune;
         [HideInInspector] public bool interactable;

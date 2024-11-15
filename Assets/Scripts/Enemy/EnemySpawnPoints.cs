@@ -17,7 +17,7 @@ namespace Enemy
         public void Unlock()
         {
             locked = false;
-            Debug.Log("Spawn point Unlocked!");
+            // Debug.Log("Spawn point Unlocked!");
         }
     }
 }

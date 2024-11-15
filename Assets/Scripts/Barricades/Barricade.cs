@@ -30,19 +30,18 @@ namespace Barricades
                 }
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            
+            return false;
         }
 
         public void RemoveMyself()
         {
-            foreach (var moneyDisplay in moneyDisplays)
+            Destroy(gameObject);
+            /*foreach (var moneyDisplay in moneyDisplays)
             {
                 moneyDisplay.text = "";
             }
-            gameObject.SetActive(false);
+            gameObject.SetActive(false);*/
         }
     }
 }

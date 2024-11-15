@@ -551,6 +551,9 @@ MonoBehaviour:
   barricadeLayer:
     serializedVersion: 2
     m_Bits: 128
+  trashcanLayer:
+    serializedVersion: 2
+    m_Bits: 256
   crossHair: {fileID: 3355806372508914036}
   weaponIndex: 0
   meleeModel: {fileID: 1665944925123799981}

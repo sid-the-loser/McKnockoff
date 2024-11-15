@@ -5,6 +5,7 @@ using Barricades;
 using Enemy;
 using General;
 using TMPro;
+using Trashcans;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,6 +19,7 @@ namespace Player
         [SerializeField] private GameObject headObject;
         [SerializeField] private LayerMask enemyLayer;
         [SerializeField] private LayerMask barricadeLayer;
+        [SerializeField] private LayerMask trashcanLayer;
         [SerializeField] private TextMeshProUGUI crossHair;
         [SerializeField] private int weaponIndex;
         
@@ -132,7 +134,7 @@ namespace Player
                             {
                                 crossHair.color = Color.red;
                                 crossHair.fontStyle = FontStyles.Underline;
-                                if (InputManager.RangedAttackPressed && !_pistolInCooldown)
+                                if (InputManager.RangedAttackPressed && !_pistolInCooldown && _inHandAmmo > 0)
                                 {
                                     data.collider.gameObject.GetComponent<EnemyStats>().GotHit(pistolDamage);
                                 }
@@ -152,7 +154,7 @@ namespace Player
                             {
                                 crossHair.color = Color.red;
                                 crossHair.fontStyle = FontStyles.Underline;
-                                if (InputManager.RangedAttackPressed && !_slugInCooldown)
+                                if (InputManager.RangedAttackPressed && !_slugInCooldown && _inHandAmmo > 0)
                                 {
                                     data.collider.gameObject.GetComponent<EnemyStats>().GotHit(slugDamage);
                                 }
@@ -172,7 +174,7 @@ namespace Player
                             {
                                 crossHair.color = Color.red;
                                 crossHair.fontStyle = FontStyles.Underline;
-                                if (InputManager.RangedAttackPressedDown && !_smgInCooldown)
+                                if (InputManager.RangedAttackPressedDown && !_smgInCooldown && _inHandAmmo > 0)
                                 {
                                     data.collider.gameObject.GetComponent<EnemyStats>().GotHit(smgDamage);
                                 }
@@ -207,9 +209,36 @@ namespace Player
                     }
                     else
                     {
-                        crossHair.color = Color.grey;
-                        crossHair.fontStyle = FontStyles.Normal;
-                        _playerStats.interactable = false;
+                        data = new RaycastHit();
+                        hit = Physics.Raycast(headObject.transform.position, 
+                            headObject.transform.TransformDirection(Vector3.forward),
+                            out data, meleeDistance, trashcanLayer);
+
+                        if (hit)
+                        {
+                            crossHair.color = Color.yellow;
+                            crossHair.fontStyle = FontStyles.Bold;
+                            _playerStats.interactable = true;
+                            if (InputManager.UseButtonPressed)
+                            {
+                                var tra = data.collider.gameObject.GetComponent<TrashcanLogic>();
+                                var a = tra.TryBuy(_playerStats.money);
+
+                                if (a > -1)
+                                {
+                                    _playerStats.money -= tra.moneyToOpen;
+                                    weaponIndex = a;
+                                    tra.RemoveMyself();
+                                    UpdateWeaponsModel();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            crossHair.color = Color.grey;
+                            crossHair.fontStyle = FontStyles.Normal;
+                            _playerStats.interactable = false;
+                        }
                     }
                 }
 
@@ -220,33 +249,42 @@ namespace Player
                     switch (weaponIndex)
                     {
                         case 0:
-                            if (!_meleeInCooldown)
+                            if (!_meleeInCooldown )
                             {
                                 _meleeAnimator.SetTrigger("attack");
                                 StartCoroutine(MeleeCooldown());
                             }
                             break;
                         case 1:
-                            if (!_pistolInCooldown)
+                            if (!_pistolInCooldown  && _inHandAmmo > 0)
                             {
                                 _pistolAnimator.SetTrigger("attack");
+                                _inHandAmmo--;
                                 StartCoroutine(PistolCooldown());
                             }
                             break;
                         case 2:
-                            if (!_slugInCooldown)
+                            if (!_slugInCooldown  && _inHandAmmo > 0)
                             {
                                 _slugAnimator.SetTrigger("attack");
+                                _inHandAmmo--;
                                 StartCoroutine(SlugCooldown());
                             }
                             break;
                     }
                 }
-                else if (InputManager.RangedAttackPressedDown && weaponIndex == 3 && !_smgInCooldown)
+                else if (InputManager.RangedAttackPressedDown && weaponIndex == 3 && !_smgInCooldown && _inHandAmmo > 0)
                 {
                     print("huh?");
                     _smgAnimator.SetTrigger("attack");
+                    _inHandAmmo--;
                     StartCoroutine(SmgCooldown());
+                }
+                
+                if (_inHandAmmo <= 0)
+                {
+                    weaponIndex = 0;
+                    UpdateWeaponsModel();
                 }
 
                 #endregion
