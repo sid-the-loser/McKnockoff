@@ -52,10 +52,10 @@ namespace Player
 
         [Header("Misc")] [SerializeField] private TextMeshProUGUI ammoDisplay;
 
-        private Animator _meleeAnimator;
-        private Animator _pistolAnimator;
-        private Animator _slugAnimator;
-        private Animator _smgAnimator;
+        [SerializeField]private Animator meleeAnimator;
+        [SerializeField]private Animator pistolAnimator;
+        [SerializeField]private Animator slugAnimator;
+        [SerializeField]private Animator smgAnimator;
         
         private bool _smgInCooldown;
         private bool _slugInCooldown;
@@ -64,7 +64,7 @@ namespace Player
 
         private List<GameObject> _weaponsModel = new List<GameObject>();
         private int _inHandAmmo;
-        private PlayerStats _playerStats;
+        [FormerlySerializedAs("_playerStats")] [SerializeField] private PlayerStats playerStats;
 
         private void Start()
         {
@@ -76,12 +76,12 @@ namespace Player
             _weaponsModel.Add(smgModel);
             UpdateWeaponsModel();
 
-            _meleeAnimator = meleeModel.GetComponent<Animator>();
-            _pistolAnimator = pistolModel.GetComponent<Animator>();
-            _slugAnimator = slugModel.GetComponent<Animator>();
-            _smgAnimator = smgModel.GetComponent<Animator>();
+            meleeAnimator = meleeModel.GetComponent<Animator>();
+            pistolAnimator = pistolModel.GetComponent<Animator>();
+            slugAnimator = slugModel.GetComponent<Animator>();
+            smgAnimator = smgModel.GetComponent<Animator>();
             
-            _playerStats = GetComponent<PlayerStats>();
+            playerStats = GetComponent<PlayerStats>();
         }
 
         private void Update()
@@ -195,14 +195,14 @@ namespace Player
                     {
                         crossHair.color = Color.yellow;
                         crossHair.fontStyle = FontStyles.Bold;
-                        _playerStats.interactable = true;
+                        playerStats.interactable = true;
                         if (InputManager.UseButtonPressed)
                         {
                             var bar = data.collider.gameObject.GetComponent<Barricade>();
-                            var a = bar.TryBuy(_playerStats.money);
+                            var a = bar.TryBuy(playerStats.money);
                             if (a)
                             {
-                                _playerStats.money -= bar.unlockMoney;
+                                playerStats.money -= bar.unlockMoney;
                                 bar.RemoveMyself();
                             }
                         }
@@ -218,15 +218,15 @@ namespace Player
                         {
                             crossHair.color = Color.yellow;
                             crossHair.fontStyle = FontStyles.Bold;
-                            _playerStats.interactable = true;
+                            playerStats.interactable = true;
                             if (InputManager.UseButtonPressed)
                             {
                                 var tra = data.collider.gameObject.GetComponent<TrashcanLogic>();
-                                var a = tra.TryBuy(_playerStats.money);
+                                var a = tra.TryBuy(playerStats.money);
 
                                 if (a > -1)
                                 {
-                                    _playerStats.money -= tra.moneyToOpen;
+                                    playerStats.money -= tra.moneyToOpen;
                                     weaponIndex = a;
                                     tra.RemoveMyself();
                                     UpdateWeaponsModel();
@@ -237,7 +237,7 @@ namespace Player
                         {
                             crossHair.color = Color.grey;
                             crossHair.fontStyle = FontStyles.Normal;
-                            _playerStats.interactable = false;
+                            playerStats.interactable = false;
                         }
                     }
                 }
@@ -249,16 +249,16 @@ namespace Player
                     switch (weaponIndex)
                     {
                         case 0:
-                            if (!_meleeInCooldown )
+                            if (!_meleeInCooldown)
                             {
-                                _meleeAnimator.SetTrigger("attack");
+                                meleeAnimator.SetTrigger("attack");
                                 StartCoroutine(MeleeCooldown());
                             }
                             break;
                         case 1:
                             if (!_pistolInCooldown  && _inHandAmmo > 0)
                             {
-                                _pistolAnimator.SetTrigger("attack");
+                                pistolAnimator.SetTrigger("attack");
                                 _inHandAmmo--;
                                 StartCoroutine(PistolCooldown());
                             }
@@ -266,7 +266,7 @@ namespace Player
                         case 2:
                             if (!_slugInCooldown  && _inHandAmmo > 0)
                             {
-                                _slugAnimator.SetTrigger("attack");
+                                slugAnimator.SetTrigger("attack");
                                 _inHandAmmo--;
                                 StartCoroutine(SlugCooldown());
                             }
@@ -276,7 +276,7 @@ namespace Player
                 else if (InputManager.RangedAttackPressedDown && weaponIndex == 3 && !_smgInCooldown && _inHandAmmo > 0)
                 {
                     print("huh?");
-                    _smgAnimator.SetTrigger("attack");
+                    smgAnimator.SetTrigger("attack");
                     _inHandAmmo--;
                     StartCoroutine(SmgCooldown());
                 }
@@ -334,17 +334,20 @@ namespace Player
 
         private void UpdateWeaponsModel()
         {
-            if (weaponIndex == 1)
+            switch (weaponIndex)
             {
-                _inHandAmmo = maxPistolAmmo;
-            }
-            if (weaponIndex == 2)
-            {
-                _inHandAmmo = maxSlugAmmo;
-            }
-            if (weaponIndex == 3)
-            {
-                _inHandAmmo = maxSmgAmmo;
+                case 1:
+                    _inHandAmmo = maxPistolAmmo;
+                    break;
+                case 2:
+                    _inHandAmmo = maxSlugAmmo;
+                    break;
+                case 3:
+                    _inHandAmmo = maxSmgAmmo;
+                    break;
+                case 0:
+                    meleeAnimator.SetTrigger("attack");
+                    break;
             }
             
             foreach (var obj in _weaponsModel)

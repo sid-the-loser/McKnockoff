@@ -20,7 +20,7 @@ namespace Trashcans
             var x = moneyToOpen - amount;
             if (x <= 0)
             {
-                return Random.Range(0, 3);
+                return Random.Range(1, 3);
             }
             
             return -1;

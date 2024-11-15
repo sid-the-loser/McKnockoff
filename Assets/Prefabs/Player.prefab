@@ -576,6 +576,11 @@ MonoBehaviour:
   smgFireDelay: 0.1
   maxSmgAmmo: 100
   ammoDisplay: {fileID: 3771582100064364708}
+  meleeAnimator: {fileID: 6958810530677394957}
+  pistolAnimator: {fileID: 8825134344690947045}
+  slugAnimator: {fileID: 7785950906833151343}
+  smgAnimator: {fileID: 7783223614513758063}
+  playerStats: {fileID: 4164546381515441409}
 --- !u!114 &4164546381515441409
 MonoBehaviour:
   m_ObjectHideFlags: 0
